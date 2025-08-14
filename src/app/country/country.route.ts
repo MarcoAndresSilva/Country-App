@@ -4,14 +4,16 @@ import { ByCapitalPageComponent } from './pages/by-capital-page/by-capital-page.
 export const countryRoutes: Routes = [
     {
         path: '',
-        component: ByCapitalPageComponent, 
+        component: ByCapitalPageComponent,
     },
-    {
-        path: 'country',
-        // loadChildren:() => import('./country.module').then( m => m.CountryModule )
-    },
-    {
-        path: '**',
-        redirectTo: ''
-    }
+//     {
+//         path: 'country',
+//         loadChildren:() => import('./country/country.routes'),
+//     },
+//     {
+//         path: '**',
+//         redirectTo: ''
+//     }
 ];
+
+export default countryRoutes;
