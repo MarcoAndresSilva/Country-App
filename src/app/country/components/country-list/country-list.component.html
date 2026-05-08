@@ -13,19 +13,30 @@
     </thead>
 
     <tbody>
-      <tr>
-        <!-- <td style="width: 150px">
-          <img
-            src="https://flagcdn.com/w320/cl.png"
-            alt="Chile"
-            class="w-full h-auto object-cover"
-          />
-        </td>
-
-        <td style="width: 250px">Chile</td>
-        <td style="width: 250px">Santiago</td>
-        <td style="width: 250px">20.000.000</td> -->
-      </tr>
+      @for (country of countries(); track country.cca2; let index = $index) {
+        <tr>
+          <td>{{ country.cca3 }}</td>
+          <td>
+            <img
+              class="w-6 h-6 rounded-full"
+              src="{{ country.flags.png }}"
+              alt="{{ country.name.common }}"
+            />
+          </td>
+          <td>{{ country.flag }}</td>
+          <td>{{ country.name.common }}</td>
+          <td>{{ country.capital?.[0] }}</td>
+          <td>{{ country.population }}</td>
+          <td>
+            <a
+              class="btn btn-sm btn-primary"
+              href="/countries/{{ country.cca3 }}"
+            >
+              Ver detalles
+            </a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </section>

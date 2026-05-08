@@ -1,11 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
+import { RESTCountry } from '../../interfaces/rest-countries.interface';
 
 @Component({
   selector: 'app-by-country-page-component',
   imports: [SearchInputComponent, CountryListComponent],
   templateUrl: './by-country-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ByCountryPageComponent {}
+export class ByCountryPageComponent {
+  countries = input.required<RESTCountry[]>();
+}
