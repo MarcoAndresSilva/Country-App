@@ -23,29 +23,4 @@ export class ByCapitalPageComponent {
       );
     },
   });
-
-  // isLoading = signal(false);
-  // hasError = signal<string | null>(null);
-  // countries = signal<Country[]>([]);
-
-  // onSearch(query: string) {
-
-  // if (this.isLoading()) return;
-  // this.isLoading.set(true);
-  // this.hasError.set(null);
-
-  // this.countryService.searchByCapital(query).subscribe({
-  //   next: (countries) => {
-  //     this.isLoading.set(false);
-  //     this.countries.set(countries);
-  //   },
-  //   error: (error) => {
-  //     this.isLoading.set(false);
-  //     this.countries.set([]);
-  //     this.hasError.set(
-  //       'No se encontraron resultados para la capital: ' + query,
-  //     );
-  //   },
-  // });
-  // }
 }
