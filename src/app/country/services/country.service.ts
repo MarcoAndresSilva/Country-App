@@ -22,10 +22,7 @@ export class CountryService {
       catchError((error) => {
         console.error(' Error fetching countries by capital:', error);
         return throwError(
-          () =>
-            new Error(
-              'Failed to fetch countries by capital. Please try again later.',
-            ),
+          () => new Error(`No se encontró ningún país con la capital ${query}`),
         );
       }),
     );
