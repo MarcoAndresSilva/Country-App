@@ -23,12 +23,3 @@ export class ByCapitalPageComponent {
     },
   });
 }
-// countryResource = resource({
-//   request: () => ({ query: this.query() }),
-//   loader: async ({ request }) => {
-//     if (!request.query) return [];
-//     return await firstValueFrom(
-//       this.countryService.searchByCapital(request.query),
-//     );
-//   },
-// });
