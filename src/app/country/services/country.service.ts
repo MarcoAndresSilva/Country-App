@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries.interface';
-import { map, Observable, catchError, of, throwError } from 'rxjs';
+import { map, Observable, catchError, of, throwError, delay } from 'rxjs';
 import { CountryMapper } from '../mapper/country.mapper';
 import { Country } from '../interfaces/country.interface';
 
@@ -34,6 +34,7 @@ export class CountryService {
       map((response) =>
         CountryMapper.mapRestCountryArrayToCountryArray(response),
       ),
+      delay(2000), // Simula un retraso de 1 segundo
       catchError((error) => {
         console.error(' Error fetching countries by name:', error);
         return throwError(
