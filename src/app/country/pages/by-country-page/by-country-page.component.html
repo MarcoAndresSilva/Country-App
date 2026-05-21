@@ -3,4 +3,9 @@
   placeholder="Buscar por el país"
 />
 
-<country-list [countries]="countryResource.value()! ?? []" />
+<country-list
+  [countries]="countryResource.value()! ?? []"
+  [errorMessage]="countryResource.error()"
+  [isLoading]="countryResource.isLoading()"
+  [isEmpty]="countryResource.value()?.length === 0"
+/>

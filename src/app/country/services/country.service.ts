@@ -34,7 +34,7 @@ export class CountryService {
       map((response) =>
         CountryMapper.mapRestCountryArrayToCountryArray(response),
       ),
-      delay(2000), // Simula un retraso de 1 segundo
+      delay(1000),
       catchError((error) => {
         console.error(' Error fetching countries by name:', error);
         return throwError(
