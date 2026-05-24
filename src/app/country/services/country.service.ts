@@ -48,7 +48,6 @@ export class CountryService {
     const url = `${API_URL}/alpha/${code}`;
     return this.http.get<RESTCountry>(url).pipe(
       map((response) => CountryMapper.mapRestCountryToCountry(response)),
-      map((countries) => countries.at(0)),
       catchError((error) => {
         console.error(' Error fetching country by alpha code:', error);
         return throwError(
