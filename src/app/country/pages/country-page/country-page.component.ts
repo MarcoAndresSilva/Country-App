@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-country-page',
@@ -6,4 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './country-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryPageComponent {}
+export class CountryPageComponent {
+  countrycode = inject(ActivatedRoute).snapshot.paramMap.get('code') || '';
+}
