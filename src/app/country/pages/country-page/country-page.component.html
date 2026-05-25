@@ -1,4 +1,6 @@
-@if (countryResource.error()) {}
+@if (countryResource.error()) {
+  <app-not-found></app-not-found>
+}
 
 @if (countryResource.hasValue()) {
   <h3>nombre: {{ countryResource.value()?.name }}</h3>
