@@ -1,4 +1,5 @@
-<p>country-page works!</p>
-,
+@if (countryResource.error()) {}
 
-{{ countrycode }}
+@if (countryResource.hasValue()) {
+  <h3>nombre: {{ countryResource.value()?.name }}</h3>
+}

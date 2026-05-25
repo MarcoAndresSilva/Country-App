@@ -46,8 +46,11 @@ export class CountryService {
 
   countrySearchByAlphaCode(code: string): Observable<Country> {
     const url = `${API_URL}/alpha/${code}`;
-    return this.http.get<RESTCountry>(url).pipe(
-      map((response) => CountryMapper.mapRestCountryToCountry(response)),
+    return this.http.get<RESTCountry[]>(url).pipe(
+      map(
+        (response) =>
+          CountryMapper.mapRestCountryArrayToCountryArray(response)[0],
+      ),
       catchError((error) => {
         console.error(' Error fetching country by alpha code:', error);
         return throwError(
