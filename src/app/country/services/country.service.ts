@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+
 import { RESTCountry } from '../interfaces/rest-countries.interface';
-import { map, Observable, catchError, of, throwError, delay } from 'rxjs';
+import { map, Observable, catchError, throwError, delay } from 'rxjs';
+import type { Country } from '../interfaces/country.interface';
 import { CountryMapper } from '../mapper/country.mapper';
-import { Country } from '../interfaces/country.interface';
 
 const API_URL = 'https://restcountries.com/v3.1';
 
@@ -15,47 +16,48 @@ export class CountryService {
 
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
+
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`).pipe(
-      map((response) =>
-        CountryMapper.mapRestCountryArrayToCountryArray(response),
-      ),
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
       catchError((error) => {
-        console.error(' Error fetching countries by capital:', error);
+        console.log('Error fetching ', error);
+
         return throwError(
-          () => new Error(`No se encontró ningún país con la capital ${query}`),
+          () => new Error(`No se pudo obtener países con ese query ${query}`),
         );
       }),
     );
   }
 
-  searchByCountry(query: string): Observable<Country[]> {
+  searchByCountry(query: string) {
     const url = `${API_URL}/name/${query}`;
+
+    query = query.toLowerCase();
+
     return this.http.get<RESTCountry[]>(url).pipe(
-      map((response) =>
-        CountryMapper.mapRestCountryArrayToCountryArray(response),
-      ),
-      delay(1000),
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      delay(2000),
       catchError((error) => {
-        console.error(' Error fetching countries by name:', error);
+        console.log('Error fetching ', error);
+
         return throwError(
-          () => new Error(`No se encontró ningún país con el nombre ${query}`),
+          () => new Error(`No se pudo obtener países con ese query ${query}`),
         );
       }),
     );
   }
 
-  countrySearchByAlphaCode(code: string): Observable<Country> {
+  searchCountryByAlphaCode(code: string) {
     const url = `${API_URL}/alpha/${code}`;
+
     return this.http.get<RESTCountry[]>(url).pipe(
-      map(
-        (response) =>
-          CountryMapper.mapRestCountryArrayToCountryArray(response)[0],
-      ),
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      map((countries) => countries.at(0)),
       catchError((error) => {
-        console.error(' Error fetching country by alpha code:', error);
+        console.log('Error fetching ', error);
+
         return throwError(
-          () =>
-            new Error(`No se encontró ningún país con el código alfa ${code}`),
+          () => new Error(`No se pudo obtener países con ese código ${code}`),
         );
       }),
     );

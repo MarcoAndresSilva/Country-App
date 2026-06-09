@@ -10,13 +10,13 @@ import { CountryInformationComponent } from './country-information/country-infor
   templateUrl: './country-page.component.html',
 })
 export class CountryPageComponent {
-  countrycode = inject(ActivatedRoute).snapshot.params['code'];
+  countryCode = inject(ActivatedRoute).snapshot.params['code'];
   countryService = inject(CountryService);
 
   countryResource = rxResource({
-    request: () => ({ code: this.countrycode }),
+    request: () => ({ code: this.countryCode }),
     loader: ({ request }) => {
-      return inject(CountryService).countrySearchByAlphaCode(request.code);
+      return this.countryService.searchCountryByAlphaCode(request.code);
     },
   });
 }
