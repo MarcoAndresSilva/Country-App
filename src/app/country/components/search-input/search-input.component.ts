@@ -11,14 +11,15 @@ export class SearchInputComponent {
 
   inputValue = signal<string>('');
 
-  debounceEffect = effect(() => {
+  debounceEffect = effect((onCleanup) => {
     const value = this.inputValue();
+
     const timeout = setTimeout(() => {
       this.value.emit(value);
     }, 500);
 
-    return () => {
+    onCleanup(() => {
       clearTimeout(timeout);
-    };
+    });
   });
 }
