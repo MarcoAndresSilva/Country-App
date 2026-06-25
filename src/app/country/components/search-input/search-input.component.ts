@@ -8,6 +8,7 @@ import { Component, effect, input, output, signal } from '@angular/core';
 export class SearchInputComponent {
   placeholder = input('Buscar');
   value = output<string>();
+  debounceTime = input(300);
 
   inputValue = signal<string>('');
 
@@ -16,7 +17,7 @@ export class SearchInputComponent {
 
     const timeout = setTimeout(() => {
       this.value.emit(value);
-    }, 500);
+    }, this.debounceTime());
 
     onCleanup(() => {
       clearTimeout(timeout);
