@@ -13,6 +13,7 @@ const API_URL = 'https://restcountries.com/v3.1';
 })
 export class CountryService {
   private http = inject(HttpClient);
+  private queryCacheCapital = new Map
 
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
