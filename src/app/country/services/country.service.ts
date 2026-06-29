@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-
 import { RESTCountry } from '../interfaces/rest-countries.interface';
 import { map, Observable, catchError, throwError, delay, of } from 'rxjs';
 import type { Country } from '../interfaces/country.interface';
@@ -13,7 +12,7 @@ const API_URL = 'https://restcountries.com/v3.1';
 })
 export class CountryService {
   private http = inject(HttpClient);
-  private queryCacheCapital = new Map
+  private queryCacheCapital = new Map<string, Country[]>();
 
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
