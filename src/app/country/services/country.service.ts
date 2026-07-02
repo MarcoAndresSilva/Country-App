@@ -13,7 +13,8 @@ const API_URL = 'https://restcountries.com/v3.1';
 export class CountryService {
   private http = inject(HttpClient);
   private queryCacheCapital = new Map<string, Country[]>();
-
+  private queryCacheCountry = new Map<string, Country[]>();
+  private queryCacheCountryByAlphaCode = new Map<string, Country>();
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
 
@@ -36,13 +37,20 @@ export class CountryService {
     );
   }
 
-  searchByCountry(query: string) {
+  searchByCountry(query: string): Observable<Country[]> {
     const url = `${API_URL}/name/${query}`;
 
     query = query.toLowerCase();
 
+    if (this.queryCacheCountry.has(query)) {
+      return of(this.queryCacheCountry.get(query) ?? []);
+    }
+
+    console.log(`llegando al servidor desde ${query}...`);
+
     return this.http.get<RESTCountry[]>(url).pipe(
       map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      tap(countries => this.queryCacheCountry.set(query, countries)),
       delay(2000),
       catchError((error) => {
         console.log('Error fetching ', error);
@@ -54,12 +62,19 @@ export class CountryService {
     );
   }
 
-  searchCountryByAlphaCode(code: string) {
+  searchCountryByAlphaCode(code: string): Observable<Country | undefined> {
     const url = `${API_URL}/alpha/${code}`;
+
+    if (this.queryCacheCountry.has(code)) {
+      return of(this.queryCacheCountryByAlphaCode.get(code) ?? undefined) as Observable<Country | undefined>;
+    }
+
+    console.log(`llegando al servidor desde ${code}...`);
 
     return this.http.get<RESTCountry[]>(url).pipe(
       map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
       map((countries) => countries.at(0)),
+      tap(country => this.queryCacheCountryByAlphaCode.set(code, country as Country)),
       catchError((error) => {
         console.log('Error fetching ', error);
 
