@@ -21,7 +21,7 @@ export class CountryService {
       return of(this.queryCacheCapital.get(query) ?? []);
     }
 
-    // console.log(`llegando al servidor desde ${query}`)
+    console.log(`llegando al servidor desde ${query}...`);
 
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`).pipe(
       map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
