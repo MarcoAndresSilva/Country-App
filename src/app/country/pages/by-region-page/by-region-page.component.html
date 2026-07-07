@@ -4,7 +4,8 @@
 <section class="row mt-2">
     <div class="flex-col">
         @for (region of regions; track region) {
-        <button class="btn mr-2 btn-outline w-[100px]">
+        <button class="btn mr-2 btn-outline w-[100px]" (click)="selectedRegion.set(region)"
+            [class.btn-primary]="selectedRegion() === region">
             {{ region }}
         </button>
         }

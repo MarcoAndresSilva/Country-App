@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { RESTCountry } from '../../interfaces/rest-countries.interface';
 import { Country } from '../../interfaces/country.interface';
@@ -18,4 +18,6 @@ export class ByRegionPageComponent {
     'Oceania',
     'Antarctic',
   ]
+
+  selectedRegion = signal<Region | null>(null);
 }
