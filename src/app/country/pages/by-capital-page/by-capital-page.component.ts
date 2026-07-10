@@ -13,14 +13,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ByCapitalPageComponent {
   countryService = inject(CountryService);
-  query = signal('');
 
   activatedRoute = inject(ActivatedRoute);
-  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query')
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  query = signal(this.queryParam);
 
   countryResource = rxResource({
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
+      console.log(request.query)
       if (!request.query) return of([]);
 
       return this.countryService.searchByCapital(request.query);
